@@ -18,7 +18,9 @@ import { Low } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
 
 const index_file = path.join(__dirname, 'collections_index', 'index.json');
+try {
 if (!fs.existsSync(index_file)) fs.writeFileSync(index_file, '[]');
+} catch (error) {}
 
 class LowWithLodash<T> extends Low<T> {
   chain: lodash.ExpChain<this['data']> = lodash.chain(this).get('data')

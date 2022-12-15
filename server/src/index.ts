@@ -20,6 +20,12 @@ app.use(fileUpload({
     useTempFiles: false,
     // tempFileDir: path.join(dirname, 'tmp'),
 }));
+
+const index_file = path.join(__dirname, 'collections_index', 'index.json');
+try {
+if (!fs.existsSync(index_file)) fs.writeFileSync(index_file, '[]');
+} catch (error) {}
+
 app.use('/images', (req:Request,res:Response,next:NextFunction)=>{
     const string = req.url.slice(1, req.url.length );
     const path_string = path.join(__dirname, 'images', string)
