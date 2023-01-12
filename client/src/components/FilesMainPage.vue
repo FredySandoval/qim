@@ -38,7 +38,6 @@ async function handleDownloadButton() {
   } else {
     data = JSON.stringify(selectedFiles.value);
   }
-  console.log('data', data);
   const response_from_server = await fetch(`/download?main_link=${main_link}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: data })
   if (response_from_server.status !== 200) return console.log('error', response_from_server)
   const content_disposition = response_from_server.headers.get('Content-Disposition');
@@ -161,6 +160,7 @@ function deleteFile(event) {
         response_json.data.forEach(ele => {
           const index = list_of_files.value.data.documents.findIndex(item => item.unique_name == ele.unique_name)
           list_of_files.value.data.documents.splice(index, 1);
+          selectedFiles.value = [];
         });
         trash_button_status.value = true;
       }
